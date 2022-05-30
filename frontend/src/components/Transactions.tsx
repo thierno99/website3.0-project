@@ -12,6 +12,7 @@ interface TransactionCardProps{
     amount: string;
     addressTo: string;
     keyword: string;
+    key:number;
 }
 const TransactionCard = ( {id, url, message, timestamp, addressFrom, amount,addressTo,keyword}:TransactionCardProps) =>{
     const gifUrl = useFectch({keyword:keyword})
@@ -52,6 +53,7 @@ const TransactionCard = ( {id, url, message, timestamp, addressFrom, amount,addr
 const Transactions = () =>{
     
     const {currentAccount, transactions} =useContext(TransactionContext)
+    
     return(
         <div className="flex w-full justify-center items-center 2xl:px-20 gradient-bg-transactions">
             <div className="flex flex-col md:p-12 py-12 px-4">
@@ -70,10 +72,17 @@ const Transactions = () =>{
 
                 <div className="flex flex-wrap justify-center items-center mt-10">
                     {
-                        transactions.reverse().map((transaction, index)=>(
+                        transactions.reverse().map((transaction:any, index)=>(
                             <TransactionCard
-                                key={index}
-                                {...transaction}
+                                id={0} 
+                                url={transaction.url} 
+                                message={transaction.message} 
+                                timestamp={transaction.timestamp} 
+                                addressFrom={transaction.addressFrom} 
+                                amount={transaction.amount} 
+                                addressTo={transaction.addressTo} 
+                                keyword={transaction.keyword} 
+                                key={index}    
                             />
                         ))
                     }
